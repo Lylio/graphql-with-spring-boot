@@ -12,8 +12,60 @@ GraphQL for beginners: a simple GraphQL server with Spring Boot.
 | Last Commit  | ![Github Commit Activity](https://img.shields.io/github/last-commit/lylio/cookie-contacts/main?style=for-the-badge)                                                                                                                    |
 
 
-### Setup & Launch
+### Launch
+1. Launch app with `mvn spring-boot:run`
+2. Navigate to the query interface at http://localhost:8080/graphiql
 
+### Test Queries
+
+1. Create a vehicle with the following query:
+```graphql
+mutation {
+  createVehicle(type: "car", modelCode: "XYZ0192", brandName: "XYZ", launchDate: "2016-08-16") 
+  {
+    id
+  }
+}
+```
+This will create a row in the Vehicle table. The confirmation output should be:
+
+```graphql
+{
+  "data": {
+    "createVehicle": {
+      "id": "1"
+    }
+  }
+}
+```
+2. Then run a query to get the data:
+
+```graphql
+query {
+  vehicles(count: 1) 
+  {
+    id, 
+    type, 
+    modelCode
+}
+}
+```
+The output should be:
+```graphql
+{
+  "data": {
+    "vehicles": [
+      {
+        "id": "1",
+        "type": "bus",
+        "modelCode": "XYZ123"
+      }
+    ]
+  }
+}
+```
+
+Experiment by creating more Vehicles and changing the number of the `count` variable. Also, try fetching only specific fields.
 
 <br />
 
